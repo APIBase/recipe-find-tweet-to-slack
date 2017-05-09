@@ -1,0 +1,34 @@
+{
+    "_created": 1465361362,
+    "_id": 47991,
+    "_type": "Recipe",
+    "id": "13cf17cb-5eb2-4e34-b6ef-f0a49f44840a",
+    "name": "searchTweetNPostSlack",
+    "operations": {
+        "postSlack": "8f67dd30-7638-4feb-99b4-365a28f734c1",
+        "searchTweet": "8c405c6a-f238-4d2e-a2fb-78fbe2315e49"
+    },
+    "parameters": {
+        "q": "overwatch",
+        "slackChannel": "x",
+        "slackToken": "x",
+        "twitterToken": "x"
+    },
+    "sequence": [
+        {
+            "operation": "searchTweet",
+            "parameters": {
+                "authorization": "\"Bearer \" + (.twitterToken)",
+                "q": ".q"
+            }
+        },
+        {
+            "operation": "postSlack",
+            "parameters": {
+                "channel": ".slackChannel",
+                "text": "(._results[\"0\"].statuses[0].user.name) + \" says \" +(._results[\"0\"].statuses[0].text)",
+                "token": ".slackToken"
+            }
+        }
+    ]
+}
